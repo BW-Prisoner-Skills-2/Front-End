@@ -1,77 +1,96 @@
 import React, { Component } from 'react';
-import axios from "axios";
+import axios from 'axios';
 import FormInput from '../form-input/FormInput';
 import CustomButton from '../custom-button/CustomButton';
 // import { signInWithGoogle } from '../../firebase/firebase.utils';
-import "./sign-in.scss";
+import './sign-in.scss';
+import { fetchActivity } from '../../actions';
+import { connect } from 'react-redux';
 
 class SignIn extends Component {
-    constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props);
 
-        this.state = {
-            username: "",
-            password: ""
-        }
-    }
+		this.state = {
+			username: '',
+			password: ''
+		};
+	}
 
-    handleSubmit = event => {
-        event.preventDefault();
+	handleSubmit = (event) => {
+		event.preventDefault();
 
-        // this.setState({ username: "", password: "" })
-        axios
-            .post('https://prison-skills.herokuapp.com/api/auth/login', { username: this.state.username, password: this.state.password })
-            .then(res => {
-                console.log(res);
-                localStorage.setItem('token', res.data.token);
-                this.props.history.push('/prisonList');
-                // this.props.getPrisonList();
-                // this.props.fetchActivity();
-            })
-            .catch(err => console.log(err));
-    };
-    
+		// this.setState({ username: "", password: "" })
+		axios
+			.post('https://prison-skills.herokuapp.com/api/auth/login', {
+				username: this.state.username,
+				password: this.state.password
+			})
+			.then((res) => {
+				console.log(res);
+				localStorage.setItem('token', res.data.token);
+				window.location.href = '/prisonList';
+				// this.props.getPrisonList();
+				// this.props.fetchActivity();
+			})
+			.catch((err) => console.log(err));
+	};
 
-    handleChange = event => {
-        const { value, name } = event.target;
+	handleChange = (event) => {
+		const { value, name } = event.target;
 
-        this.setState({ ...this.state, [event.target.name]: value });
-    }
+		this.setState({ ...this.state, [event.target.name]: value });
+	};
 
-    render() {
-        return(
-            <div className="log-in">
-                <h2>I already have an account</h2>
-                <span>Log in with Username and Password.</span>
+	render() {
+		return (
+			<div className="log-in">
+				<h2>I already have an account</h2>
+				<span>Log in with Username and Password.</span>
 
-                <form onSubmit={this.handleSubmit}>
-                    <FormInput 
-                    name="username" 
-                    type="username" 
-                    value={this.state.username}
-                    handleChange={this.handleChange}
-                    label="Username"
-                    required />
+				<form onSubmit={this.handleSubmit}>
+					<FormInput
+						name="username"
+						type="username"
+						value={this.state.username}
+						handleChange={this.handleChange}
+						label="Username"
+						required
+					/>
 
-                    <FormInput 
-                    name="password" 
-                    type="password" 
-                    value={this.state.password}
-                    handleChange={this.handleChange}
-                    label="Password"
-                    required />
+					<FormInput
+						name="password"
+						type="password"
+						value={this.state.password}
+						handleChange={this.handleChange}
+						label="Password"
+						required
+					/>
 
-                    <div className="buttons">
-                        <CustomButton type="submit">SIGN IN</CustomButton>
-                        {/* <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+					<div className="buttons">
+						<CustomButton type="submit">SIGN IN</CustomButton>
+						{/* <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
                             {''}
                             Sign in with Google{''}
                         </CustomButton> */}
-                    </div>
-                </form>
-            </div>
-        );
-    }
+					</div>
+				</form>
+			</div>
+		);
+	}
 }
+const mapStateToProps = (state) => {
+	return {
+		prisonList: state.prisonList,
+		prisonid: state.prisonid,
+		error: state.error,
+		prisonerList: state.prisonerList,
+		allPrisonerList: state.allPrisonerList,
+		allPrisonLocations: state.allPrisonLocations,
+		finalList: state.finalList,
+		isAdmin: state.isAdmin,
+		isLoading: state.isLoading
+	};
+};
 
-export default SignIn;
+export default connect(mapStateToProps, { fetchActivity })(SignIn);

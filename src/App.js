@@ -8,11 +8,11 @@ import { connect } from 'react-redux';
 import PrisonList from './components/PrisonList';
 import PrisonProfile from './components/PrisonProfile';
 import CreatePrisonerProfile from './components/CreatePrisonerProfile';
-import Login from './components/Login';
+// import Login from './components/Login';
 import { axiosWithAuth } from './utils/axiosWithAuth';
 
-import Header from "./components/header/Header"//---<
-import LoginPage from "../src/pages/login/LoginPage";//---<
+import Header from './components/header/Header'; //---<
+import LoginPage from '../src/pages/login/LoginPage'; //---<
 
 function App() {
 	const [prisonid, setPrisonID] = useState('');
@@ -109,7 +109,6 @@ function App() {
 	return (
 		<Router>
 			<div className="App">
-			<Header />
 				<Switch>
 					<Route path="/prisonList">
 						{!isLoading && formattedlist && (
@@ -180,7 +179,7 @@ function App() {
 
 					<Route
 						path="/login"
-						component={LoginPage}//---<
+						component={LoginPage} //---<
 						getPrisonList={getPrisonList}
 						fetchActivity={fetchActivity}
 						isAdmin={isAdmin}
@@ -193,7 +192,7 @@ function App() {
 						<Redirect to="/prisonList" />
 					</Route>
 					<Route
-						component={Login}
+						component={LoginPage}
 						getPrisonList={getPrisonList}
 						fetchActivity={fetchActivity}
 						setIsAdmin={setIsAdmin}
