@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
-    background-color: rgb(25, 25, 104);
+    background-color: #006e90;
   
     .logo-container {
       height: 100%;
@@ -25,5 +25,12 @@
         color: white;
       }
     }
+  }
+
+  .App-logo {
+    height: 7vmin;
+    pointer-events: none;
+    margin-left: 15%;
+    margin-top: 3%;
   }
   
