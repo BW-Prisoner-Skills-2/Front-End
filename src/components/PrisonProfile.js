@@ -4,9 +4,10 @@ import styled, { keyframes } from 'styled-components';
 import { fetchActivity, isAdminReducer } from '../actions';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { connect } from 'react-redux';
-import Login from './Login';
+import LoginPage from '../pages/login/LoginPage';
 import Header from './Header';
 import Footer from './Footer';
+import LHeader from './header/Header'; //---<
 
 const Div = styled.div`
 	background-color: #006e90;
@@ -119,24 +120,6 @@ const Hr = styled.hr`
 	border-top: 3px solid #99c24d;
 	background: transparent;
 `;
-/*
-const Rocket = styled.img`
-	src: url(${rocket});
-	justify-content: right;
-	align-self: right;
-	width: 10%;
-	padding-top: 2%;
-	color: #ffffff;
-	transform: translate(-2vh, -6vh);
-	animation: ${wobble3};
-	animation-duration: 1s;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
-	z-index: 99000;
-	overflow: hidden;
-`;
-*/
-
 class PrisonProfile extends React.Component {
 	constructor(props) {
 		super(props);
@@ -171,9 +154,9 @@ class PrisonProfile extends React.Component {
 	render() {
 		return (
 			<Div>
-				<Header />
-				{localStorage.getItem('token') === false && <Link to="/login" component={Login}></Link>}
+				{!localStorage.getItem('token') && <Link to="/login" component={LHeader} />}
 				<div style={buttons}>
+					<Header />
 					<Link to={`/prisonList`} style={linksColor}>
 						<Button>back to list of prisons</Button>
 					</Link>

@@ -1,11 +1,21 @@
 import React, { useEffect } from 'react';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import IndividualPrisonListItem from './IndividualPrisonListItem';
 import { fetchActivity, isAdminReducer } from '../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Login from './Login';
+// import Login from './Login';
+import LoginPage from '../pages/login/LoginPage';
+import LHeader from './header/Header'; //---<
 
+const Div = styled.div`
+	background-color: #006e90;
+	width: 95%;
+	margin: 3%;
+	padding: 1%;
+	color: #c0c0c0;
+	font-family: 'Roboto', sans-serif;
+`;
 function PrisonList(props) {
 	useEffect(() => {
 		props.fetchActivity();
@@ -13,7 +23,7 @@ function PrisonList(props) {
 
 	if (localStorage.getItem('token')) {
 		return (
-			<div className="row">
+			<Div>
 				<IndividualPrisonListItem
 					key={props.prisonList}
 					prisonList={props.prisonList}
@@ -31,12 +41,12 @@ function PrisonList(props) {
 					isLoggedIn={props.isLoggedIn}
 					setIsLoggedIn={props.setIsLoggedIn}
 				/>
-			</div>
-		);
+			</Div>
+		); //
 	} else {
 		return (
-			<div className="row">
-				<Link to="/login" component={Login} />
+			<Div className="row">
+				<LHeader />
 				<IndividualPrisonListItem
 					key={props.prisonList}
 					prisonList={props.prisonList}
@@ -54,7 +64,7 @@ function PrisonList(props) {
 					isLoggedIn={props.isLoggedIn}
 					setIsLoggedIn={props.setIsLoggedIn}
 				/>
-			</div>
+			</Div>
 		);
 	}
 }
