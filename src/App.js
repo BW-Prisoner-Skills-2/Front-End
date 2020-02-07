@@ -11,7 +11,7 @@ import CreatePrisonerProfile from './components/CreatePrisonerProfile';
 import Login from './components/Login';
 import { axiosWithAuth } from './utils/axiosWithAuth';
 
-import Header from "./components/header/Header"//---<
+
 import LoginPage from "../src/pages/login/LoginPage";//---<
 
 function App() {
@@ -109,7 +109,7 @@ function App() {
 	return (
 		<Router>
 			<div className="App">
-			<Header />
+
 				<Switch>
 					<Route path="/prisonList">
 						{!isLoading && formattedlist && (
